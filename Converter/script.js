@@ -43,26 +43,28 @@ function loadFlag(element) {
   }
 }
 
-function getExchangeRate() {
+async function getExchangeRate() {
   const amount = document.querySelector("form input");
   const exchangeTxt = document.querySelector("form .exchange-rate");
   let amountVal = amount.value;
+
   if (amountVal == "" || amountVal == "0") {
     amount.value = "1";
     amountVal = 1;
   }
   exchangeTxt.innerText = "Getting exchange rate...";
-  let url = `https://v6.exchangerate-api.com/v6/7732a674c8625845ddac6ee1/pair/${fromCurrency.value}/${toCurrency.value}/${amountVal}
-  `;
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      let totalRate = data.conversion_result.toFixed(2); // round to 2 places
-      exchangeTxt.innerText = `${amountVal} ${fromCurrency.value} = ${totalRate} ${toCurrency.value}`;
-    })
-    .catch(() => {
-      exchangeTxt.innerText = "Something went wrong";
-    });
+
+  try {
+    let url = `https://v6.exchangerate-api.com/v6/7732a674c8625845ddac6ee1/pair/${fromCurrency.value}/${toCurrency.value}/${amountVal}`;
+    data = await fetch(url);
+    response = await data.json();
+
+    let totalRate = response.conversion_result.toFixed(2); // round to 2 places
+    exchangeTxt.innerText = `${amountVal} ${fromCurrency.value} = ${totalRate} ${toCurrency.value}`;
+  } 
+  catch (e) {
+    exchangeTxt.innerText = "Something went wrong";
+  }
 }
 
 loadSelect();
