@@ -15,17 +15,14 @@ body {
   background: rgb(0, 31, 75);
 }
 
-
-
 .wrapper {
   width: 370px;
   padding: 30px;
   border-radius: 7px;
   background: #fff;
-  box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
 }
 
-.wrapper h1{
+.wrapper h1 {
   font-size: 30px;
   font-weight: 100;
 }
@@ -96,4 +93,6 @@ form button {
 }
 form button:hover {
   background: #050039;
+  transform: translate(0px, -7px);
+
 }
